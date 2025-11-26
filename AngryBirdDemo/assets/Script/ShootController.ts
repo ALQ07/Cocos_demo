@@ -13,12 +13,22 @@ export class ShootController extends Component {
     private elapsedTime: number = 0;
     private collider: BoxCollider2D = null;
     private rigidBody: RigidBody2D = null;
+    private startBoxPos: Vec3[] = [];
+    private startNpcPos: Vec3[] = [];
     @property(Node) bird: Node = null;
+    @property(Node) npc: Node = null;
+    @property(Node) box: Node = null;
 
     protected onLoad(): void {
         this.graphics = this.getComponent(Graphics);
         this.startPos.set(0, 0, 0);
         this.shootStartPos.set(this.bird.position);
+        this.box.children.forEach((child) => {
+            this.startBoxPos.push(child.position.clone());
+        });
+        this.npc.children.forEach((child) => {
+            this.startNpcPos.push(child.position.clone());
+        });
         this.node.on(Node.EventType.TOUCH_END, this.onTouchEnd, this);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         // this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
@@ -34,7 +44,7 @@ export class ShootController extends Component {
     private onBirdCollision(selfCollider: BoxCollider2D, otherCollider: BoxCollider2D, contact: any): void {
         this.isShoot = false;
         this.rigidBody.gravityScale = 10;
-        this.rigidBody.linearVelocity.set(10000, 100000);
+        this.rigidBody.linearVelocity.set(10, 10);
     }
 
     private onTouchEnd(event: EventTouch): void {
@@ -112,6 +122,12 @@ export class ShootController extends Component {
         this.acc = 0;
         this.elapsedTime = 0;
         this.bird.setPosition(this.shootStartPos);
+        this.box.children.forEach((child, index) => {
+            child.setPosition(this.startBoxPos[index]);
+        });
+        this.npc.children.forEach((child, index) => {
+            child.setPosition(this.startNpcPos[index]);
+        });
     }
 }
 
