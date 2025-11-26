@@ -1,4 +1,4 @@
-import { _decorator, Color, Component, EventTouch, Graphics, Node, UITransform, Vec3 } from 'cc';
+import { _decorator, BoxCollider2D, Color, Component, EventTouch, Graphics, Node, RigidBody2D, UITransform, Vec3 } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShootController')
@@ -11,6 +11,8 @@ export class ShootController extends Component {
     private acc: number = 0;
     private shootStartPos: Vec3 = new Vec3();
     private elapsedTime: number = 0;
+    private collider: BoxCollider2D = null;
+    private rigidBody: RigidBody2D = null;
     @property(Node) bird: Node = null;
 
     protected onLoad(): void {
@@ -21,6 +23,18 @@ export class ShootController extends Component {
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         // this.node.on(Node.EventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(Node.EventType.TOUCH_CANCEL, this.onTouchCancel, this);
+
+        this.rigidBody = this.bird.getComponent(RigidBody2D);
+        this.collider = this.bird.getComponent(BoxCollider2D);
+        if (this.collider) {
+            this.collider.on('begin-contact', this.onBirdCollision, this);
+        }
+    }
+
+    private onBirdCollision(selfCollider: BoxCollider2D, otherCollider: BoxCollider2D, contact: any): void {
+        this.isShoot = false;
+        this.rigidBody.gravityScale = 10;
+        this.rigidBody.linearVelocity.set(10000, 100000);
     }
 
     private onTouchEnd(event: EventTouch): void {
