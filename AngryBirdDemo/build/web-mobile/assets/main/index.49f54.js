@@ -1,0 +1,22 @@
+System.register("chunks:///_virtual/main",["./ShootController.ts"],(function(){return{setters:[null],execute:function(){}}}));
+
+System.register("chunks:///_virtual/ShootController.ts",["./rollupPluginModLoBabelHelpers.js","cc"],(function(t){var i,o,s,e,n,r,h,a,c,l,p,d,u,f;return{setters:[function(t){i=t.applyDecoratedDescriptor,o=t.inheritsLoose,s=t.initializerDefineProperty,e=t.assertThisInitialized},function(t){n=t.cclegacy,r=t._decorator,h=t.Node,a=t.Graphics,c=t.RigidBody2D,l=t.BoxCollider2D,p=t.UITransform,d=t.Vec3,u=t.Color,f=t.Component}],execute:function(){var g,y,T,m,b,v,C,x,P;n._RF.push({},"bd7afCgsbdDn7C8AkdgEaO+","ShootController",void 0);var S=r.ccclass,E=r.property;t("ShootController",(g=S("ShootController"),y=E(h),T=E(h),m=E(h),g((C=i((v=function(t){function i(){for(var i,o=arguments.length,n=new Array(o),r=0;r<o;r++)n[r]=arguments[r];return(i=t.call.apply(t,[this].concat(n))||this).startPos=new d,i.graphics=null,i.isShoot=!1,i.speed=0,i.dir=new d,i.acc=0,i.shootStartPos=new d,i.elapsedTime=0,i.collider=null,i.rigidBody=null,i.startBoxPos=[],i.startNpcPos=[],s(i,"bird",C,e(i)),s(i,"npc",x,e(i)),s(i,"box",P,e(i)),i}o(i,t);var n=i.prototype;return n.onLoad=function(){var t=this;this.graphics=this.getComponent(a),this.startPos.set(0,0,0),this.shootStartPos.set(this.bird.position),this.box.children.forEach((function(i){t.startBoxPos.push(i.position.clone())})),this.npc.children.forEach((function(i){t.startNpcPos.push(i.position.clone())})),this.node.on(h.EventType.TOUCH_END,this.onTouchEnd,this),this.node.on(h.EventType.TOUCH_MOVE,this.onTouchMove,this),this.node.on(h.EventType.TOUCH_CANCEL,this.onTouchCancel,this),this.rigidBody=this.bird.getComponent(c),this.collider=this.bird.getComponent(l),this.collider&&this.collider.on("begin-contact",this.onBirdCollision,this)},n.onBirdCollision=function(t,i,o){this.isShoot=!1,this.rigidBody.gravityScale=10,this.rigidBody.linearVelocity.set(10,10)},n.onTouchEnd=function(t){this.graphics.clear(),this.isShoot=!0,this.elapsedTime=0},n.onTouchCancel=function(t){this.graphics.clear(),this.isShoot=!0,this.elapsedTime=0},n.onTouchMove=function(t){var i=t.getDelta(),o=this.node.getComponent(p),s=t.getUILocation();console.log("delta",i);var e=this.startPos,n=o.convertToNodeSpaceAR(new d(s.x,s.y,0));this.graphics.clear(),this.graphics.lineWidth=2,this.graphics.strokeColor=(new u).fromHEX("#ffffffff"),this.graphics.moveTo(e.x,e.y),this.graphics.lineTo(n.x,n.y),this.graphics.stroke();var r=new d(n.x-e.x,n.y-e.y,0).normalize().multiplyScalar(-1),h=n.x-e.x,a=n.y-e.y,c=Math.sqrt(h*h+a*a),l=Math.min(1500,Math.max(200,8*c));this.speed=l,this.dir.set(r),this.acc=-1e3;for(var f=new d(r.x*l,r.y*l,0),g=0;g<=1;g+=.02){var y=e.x+f.x*g,T=e.y+f.y*g+-500*g*g;this.graphics.circle(y,T,2),this.graphics.fill()}},n.draw=function(){},n.start=function(){},n.update=function(t){if(this.isShoot){this.elapsedTime+=t;var i=this.dir.x*this.speed,o=this.dir.y*this.speed,s=this.shootStartPos.x+i*this.elapsedTime,e=this.shootStartPos.y+o*this.elapsedTime+.5*this.acc*this.elapsedTime*this.elapsedTime;this.bird.setPosition(s,e,0)}},n.reset=function(){var t=this;this.isShoot=!1,this.speed=0,this.dir.set(0,0,0),this.acc=0,this.elapsedTime=0,this.bird.setPosition(this.shootStartPos),this.box.children.forEach((function(i,o){i.setPosition(t.startBoxPos[o])})),this.npc.children.forEach((function(i,o){i.setPosition(t.startNpcPos[o])}))},i}(f)).prototype,"bird",[y],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return null}}),x=i(v.prototype,"npc",[T],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return null}}),P=i(v.prototype,"box",[m],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return null}}),b=v))||b));n._RF.pop()}}}));
+
+(function(r) {
+  r('virtual:///prerequisite-imports/main', 'chunks:///_virtual/main'); 
+})(function(mid, cid) {
+    System.register(mid, [cid], function (_export, _context) {
+    return {
+        setters: [function(_m) {
+            var _exportObj = {};
+
+            for (var _key in _m) {
+              if (_key !== "default" && _key !== "__esModule") _exportObj[_key] = _m[_key];
+            }
+      
+            _export(_exportObj);
+        }],
+        execute: function () { }
+    };
+    });
+});
