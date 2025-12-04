@@ -6,7 +6,6 @@ library/
 temp/
 local/
 profiles/
-/native/
 !/build/web-mobile/
 !/build/web-desktop/
 #//////////////////////////
